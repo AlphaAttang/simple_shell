@@ -85,5 +85,8 @@ int my_getline(int fd, char **line);
 int _writeline(char **buff, char **line, int i);
 void *_memmove(void *dst, const void *src);
 
+/* string tokenizer */
+char **_strtok(char *str, char *delim);
+int checkers(char c, char *chars);
 
 #endif /* SHELL_H */
