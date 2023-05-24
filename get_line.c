@@ -50,7 +50,7 @@ ssize_t getInput(char *data)
 	static char *buffer;
 	static size_t i, j, length;
 	ssize_t d = 0;
-	char **buffer = &(data->arg), *p;
+	char **buf = &(data->arg), *p;
 
 	_putchar(BUF_FLUSH);
 	d = insert_toBuf(data, &buffer, &length);
@@ -78,48 +78,49 @@ ssize_t getInput(char *data)
 
 /**
  * reads - reads a buffer
- * @info: parameter
+ * @data: parameter
  * @buffer: buffer
  * @i: size
  *
- * Return: r
+ * Return: d
  */
+
 ssize_t reads(char *data, char *buffer, size_t *i)
 {
-	ssize_t r = 0;
+	ssize_t d = 0;
 
 	if (*i)
 		return (0);
-	r = read(data->readfd, buffer, READ_BUF_SIZE);
-	if (r >= 0)
-		*i = r;
-	return (r);
+	data = read(data->readfd, buffer, READ_BUF_SIZE);
+	if (d >= 0)
+		*i = d;
+	return (d);
 }
 
 /**
  * get_line - gets the next line
- * @info: parameter
- * @ptr: pointer to buffer
- * @length: size
+ * @data: parameter
+ * @pointer: address of pointer to buffer, preallocated or NULL
+ * @length: size of preallocated ptr buffer if not NULL
  *
  * Return: s
  */
 
-ssize_t get_line(char *data, char **ptr, size_t *length)
+ssize_t get_line(char *data, char **pointer, size_t *length)
 {
-	static char buf[READ_BUF_SIZE];
+	static char buffer[READ_BUF_SIZE];
 	static size_t i, len;
 	size_t k;
 	ssize_t r = 0, s = 0;
 	char *p = NULL, *new_p = NULL, *c;
 
-	p = *ptr;
+	p = *pointer;
 	if (p && length)
 		s = *length;
 	if (i == len)
 		i = len = 0;
 
-	r = reads(data, buf, &len);
+	r = read_buf(info, buf, &len);
 	if (r == -1 || (r == 0 && len == 0))
 		return (-1);
 
@@ -129,7 +130,7 @@ ssize_t get_line(char *data, char **ptr, size_t *length)
 	if (!new_p)
 		return (p ? free(p), -1 : -1);
 
-	if (s != NULL)
+	if (s)
 		_strncat(new_p, buf + i, k - i);
 	else
 		_strncpy(new_p, buf + i, k - i + 1);
@@ -138,9 +139,9 @@ ssize_t get_line(char *data, char **ptr, size_t *length)
 	i = k;
 	p = new_p;
 
-	if (length != NULL)
+	if (length)
 		*length = s;
-	*ptr = p;
+	*pointer = p;
 	return (s);
 }
 
