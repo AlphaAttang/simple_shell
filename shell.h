@@ -11,6 +11,10 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <stdbool.h>
+# include <limits.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	32
+# endif
 
 /* environment variables */
 extern char **environ;
@@ -34,7 +38,7 @@ int _strlen(char *s);
 int _strncmp(char *s1, char *s2, int n);
 char *_strdup(char *s);
 char *_strchr(char *s, char c);
-
+char *_strjoin(char *s1, char *s2);
 void execution(char *cp, char **cmd);
 char *find_path(void);
 
@@ -60,11 +64,9 @@ struct flags
 
 
 /* to get line*/
-ssize_t insert_toBuf( char *data, char *buffer, size_t *length);
-ssize_t getInput(char *data);
-ssize_t reads(char *data, char *buffer, size_t i);
-int get_line(char *data ,char **, size_t *);
-void sHandler(int);
-int _putchar(char c);
+int my_getline(int fd, char **line);
+int _writeline(char **buff, char **line, int i);
+void *_memmove(void *dst, const void *src);
+
 
 #endif /* SHELL_H */
