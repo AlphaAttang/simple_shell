@@ -45,18 +45,35 @@ char *find_path(void);
 /* helper function for efficient free */
 void free_buffers(char **buf);
 
+/**
+ * struct builtin - built ins
+ * @env: parameter
+ * @exit: parameter
+ */
+
 struct builtin
 {
 	char *env;
 	char *exit;
 } builtin;
 
+
+/**
+ * struct info - information
+ * @final_exit: parameter
+ * @ln_count: parameter
+ */
 struct info
 {
 	int final_exit;
 	int ln_count;
 } info;
 
+
+/**
+ * struct flags - flags
+ * @interactive: parameter
+ */
 struct flags
 {
 	bool interactive;

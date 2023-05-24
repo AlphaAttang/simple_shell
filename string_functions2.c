@@ -4,6 +4,8 @@
  * _memmove - moves char in memory
  * @dst: pointer to char destination
  * @src: pointer to char source
+ *
+ * Return: destination
  */
 
 void *_memmove(void *dst, const void *src)
