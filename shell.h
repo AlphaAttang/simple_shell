@@ -58,4 +58,13 @@ struct flags
 	bool interactive;
 } flags;
 
+
+/* to get line*/
+ssize_t insert_toBuf( char *data, char *buffer, size_t *length);
+ssize_t getInput(char *data);
+ssize_t reads(char *data, char *buffer, size_t i);
+int get_line(char *data ,char **, size_t *);
+void sHandler(int);
+int _putchar(char c);
+
 #endif /* SHELL_H */
